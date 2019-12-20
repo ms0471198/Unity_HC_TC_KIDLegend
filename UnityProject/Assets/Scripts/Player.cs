@@ -14,9 +14,10 @@ public class Player : MonoBehaviour
     {
         rig = GetComponent<Rigidbody>();                                    // 取得元件<泛型>() (取得相同屬性面板)
         ani = GetComponent<Animator>();
-        joystick = GameObject.Find("虛擬搖桿").GetComponent<Joystick>();     // 遊戲物件.尋找("物件名稱").取得元件<泛型>()
-        // target = GameObject.Find("目標").GetComponent<Transform>();
-        target = GameObject.Find("目標").transform;
+        joystick = GameObject.Find("虛擬搖桿").GetComponent<Joystick>();    // 遊戲物件.尋找("物件名稱").取得元件<泛型>()
+        
+        // target = GameObject.Find("目標").GetComponent<Transform>();       // 原本寫法
+        target = GameObject.Find("目標").transform;                          // 簡寫 - GetComponent<Transform>() 可以直接寫成 transform
     }
 
     // 固定更新：一秒 50 次 - 控制物理
@@ -39,7 +40,8 @@ public class Player : MonoBehaviour
 
         Vector3 posPlayer = transform.position;                                         // 玩家座標 = 玩家.座標
         Vector3 posTarget = new Vector3(posPlayer.x - h, 0.26f, posPlayer.z - v);       // 目標座標 = 新 三維向量(玩家座標.X - 水平，0.26f，玩家座標.Z - 垂直)
-
-        print(posTarget);
+        target.position = posTarget;    // 目標物件.座標 = 計算後的座標
+        posTarget.y = posPlayer.y;      // 目標 Y = 玩家 Y (避免吃土)
+        transform.LookAt(posTarget);    // 看著(目標座標)
     }
 }
