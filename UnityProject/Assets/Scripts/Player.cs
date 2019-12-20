@@ -8,12 +8,15 @@ public class Player : MonoBehaviour
     private Joystick joystick;  // 虛擬搖桿類別
     private Rigidbody rig;      // 剛體
     private Animator ani;       // 動畫控制器
+    private Transform target;   // 目標
 
     private void Start()
     {
         rig = GetComponent<Rigidbody>();                                    // 取得元件<泛型>() (取得相同屬性面板)
-        ani = GetComponent<Animator>();                                    // 取得元件<泛型>() (取得相同屬性面板)
+        ani = GetComponent<Animator>();
         joystick = GameObject.Find("虛擬搖桿").GetComponent<Joystick>();     // 遊戲物件.尋找("物件名稱").取得元件<泛型>()
+        // target = GameObject.Find("目標").GetComponent<Transform>();
+        target = GameObject.Find("目標").transform;
     }
 
     // 固定更新：一秒 50 次 - 控制物理
@@ -32,8 +35,11 @@ public class Player : MonoBehaviour
 
         rig.AddForce(-h * speed, 0, -v * speed);    // 推力(-水平，0，-垂直)
 
-        // v 1、-1 h 1、-1 要打開跑步開關
-        // v 0 h 0 關閉
-        ani.SetBool("跑步開關", v != 0 || h != 0);
+        ani.SetBool("跑步開關", v != 0 || h != 0);  // 動畫控制器.設定布林值("參數"，垂直不等於 0 或者 水平不等於 0)
+
+        Vector3 posPlayer = transform.position;                                         // 玩家座標 = 玩家.座標
+        Vector3 posTarget = new Vector3(posPlayer.x - h, 0.26f, posPlayer.z - v);       // 目標座標 = 新 三維向量(玩家座標.X - 水平，0.26f，玩家座標.Z - 垂直)
+
+        print(posTarget);
     }
 }
