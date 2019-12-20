@@ -29,6 +29,12 @@ public class CameraControl : MonoBehaviour
     /// </summary>
     private void Track()
     {
-        
+        Vector3 posPlayer = player.position;                    // 玩家.座標
+        Vector3 posCamera = transform.position;                 // 攝影機.座標
+
+        posPlayer.x = 0;                                        // 取得的 玩家座標.x = 0
+        posPlayer.z = Mathf.Clamp(posPlayer.z, top, bottom);    // 取得的 玩家座標.z 夾住在 上方限制 與 下方限制 之間
+
+        transform.position = Vector3.Lerp(posCamera, posPlayer, 0.5f * Time.deltaTime * speed);
     }
 }
