@@ -47,7 +47,7 @@ namespace KID
             {
                 for (int i = 0; i < spritesBlur.Length; i++)
                 {
-                    aud.PlayOneShot(soundScroll, 0.5f);     // 播放一次(音效，音量)
+                    aud.PlayOneShot(soundScroll, 0.1f);     // 播放一次(音效，音量)
                     imgSkill.sprite = spritesBlur[i];
                     yield return new WaitForSeconds(speed);
                 }
@@ -57,7 +57,7 @@ namespace KID
             btn.interactable = true;
             index = Random.Range(0, spritesSkill.Length);   // 隨機選一張技能 1 - 8 張
             imgSkill.sprite = spritesSkill[index];              // 圖片 = 技能[隨機值]
-            aud.PlayOneShot(soundSkill, 0.3f);
+            aud.PlayOneShot(soundSkill, 0.5f);
             textName.text = namesSkill[index];                  // 文字 = 技能名稱[隨機值]
         }
 

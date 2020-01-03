@@ -7,23 +7,35 @@ public class Player : MonoBehaviour
 
     private Joystick joystick;  // 虛擬搖桿類別
     private Rigidbody rig;      // 剛體
-    private Animator ani;       // 動畫控制器
-    private Transform target;   // 目標
+    private Animator ani;               // 動畫控制器
+    private Transform target;           // 目標
+    private LevelManager levelManager;
 
     private void Start()
     {
         rig = GetComponent<Rigidbody>();                                    // 取得元件<泛型>() (取得相同屬性面板)
         ani = GetComponent<Animator>();
         joystick = GameObject.Find("虛擬搖桿").GetComponent<Joystick>();    // 遊戲物件.尋找("物件名稱").取得元件<泛型>()
-        
+
         // target = GameObject.Find("目標").GetComponent<Transform>();       // 原本寫法
         target = GameObject.Find("目標").transform;                          // 簡寫 - GetComponent<Transform>() 可以直接寫成 transform
+        //levelManager = GameObject.Find("遊戲管理器").GetComponent<LevelManager>();
+        levelManager = FindObjectOfType<LevelManager>();    // 僅限於一個
     }
 
     // 固定更新：一秒 50 次 - 控制物理
     private void FixedUpdate()
     {
         Move();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "傳送區域")
+        {
+            //levelManager.NextLevel();
+            levelManager.StartCoroutine("NextLevel");
+        }
     }
 
     /// <summary>
