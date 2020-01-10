@@ -16,3 +16,4 @@ MonoBehaviour:
   attack: 50
   cd: 3.5
   speed: 1
+  stopDistance: 2
