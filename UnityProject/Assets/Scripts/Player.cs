@@ -4,12 +4,15 @@ public class Player : MonoBehaviour
 {
     [Header("移動速度"), Range(1, 300)]
     public float speed = 10;
+    [Header("玩家資料")]
+    public PlayerData data;
 
     private Joystick joystick;  // 虛擬搖桿類別
     private Rigidbody rig;      // 剛體
     private Animator ani;               // 動畫控制器
     private Transform target;           // 目標
     private LevelManager levelManager;
+    private HpDamageManager hpDamManager;
 
     private void Start()
     {
@@ -20,7 +23,8 @@ public class Player : MonoBehaviour
         // target = GameObject.Find("目標").GetComponent<Transform>();       // 原本寫法
         target = GameObject.Find("目標").transform;                          // 簡寫 - GetComponent<Transform>() 可以直接寫成 transform
         //levelManager = GameObject.Find("遊戲管理器").GetComponent<LevelManager>();
-        levelManager = FindObjectOfType<LevelManager>();    // 僅限於一個
+        levelManager = FindObjectOfType<LevelManager>();                    // 僅限於一個
+        hpDamManager = GetComponentInChildren<HpDamageManager>();           // 取得子物件的元件 (僅限於子物件內只有一個)
     }
 
     // 固定更新：一秒 50 次 - 控制物理
