@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private Animator ani;               // 動畫控制器
     private Transform target;           // 目標
     private LevelManager levelManager;
-    private HpDamageManager hpDamManager;
+    private HpValueManager hpDamManager;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         target = GameObject.Find("目標").transform;                          // 簡寫 - GetComponent<Transform>() 可以直接寫成 transform
         //levelManager = GameObject.Find("遊戲管理器").GetComponent<LevelManager>();
         levelManager = FindObjectOfType<LevelManager>();                    // 僅限於一個
-        hpDamManager = GetComponentInChildren<HpDamageManager>();           // 取得子物件的元件 (僅限於子物件內只有一個)
+        hpDamManager = GetComponentInChildren<HpValueManager>();            // 取得子物件的元件 (僅限於子物件內只有一個)
     }
 
     // 固定更新：一秒 50 次 - 控制物理
@@ -69,5 +69,18 @@ public class Player : MonoBehaviour
     {
         data.hp -= damage;
         hpDamManager.UpdateHpBar(data.hp, data.hpMax);
+
+        // 啟動協程(血量傷害值管理器.顯示數值(傷害值，-，1，白色))
+        StartCoroutine(hpDamManager.ShowValue(damage, "-", Vector3.one, Color.white));
+
+        if (data.hp <= 0) Dead();
+    }
+
+    private void Dead()
+    {
+        ani.SetBool("死亡開關", true);
+        
+        //this.enabled = false;
+        enabled = false;                    // 取消此類別運作
     }
 }
