@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class HpDamageManager : MonoBehaviour
 {
     private Image hpBar;
+    private Text hpText;
 
     private void Start()
     {

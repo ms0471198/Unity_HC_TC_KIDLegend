@@ -60,4 +60,14 @@ public class Player : MonoBehaviour
         posTarget.y = posPlayer.y;      // 目標 Y = 玩家 Y (避免吃土)
         transform.LookAt(posTarget);    // 看著(目標座標)
     }
+
+    /// <summary>
+    /// 受傷
+    /// </summary>
+    /// <param name="damage">接收傷害值</param>
+    public void Hit(float damage)
+    {
+        data.hp -= damage;
+        hpDamManager.UpdateHpBar(data.hp, data.hpMax);
+    }
 }
