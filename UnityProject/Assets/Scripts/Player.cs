@@ -7,12 +7,12 @@ public class Player : MonoBehaviour
     [Header("玩家資料")]
     public PlayerData data;
 
-    private Joystick joystick;  // 虛擬搖桿類別
-    private Rigidbody rig;      // 剛體
-    private Animator ani;               // 動畫控制器
-    private Transform target;           // 目標
-    private LevelManager levelManager;
-    private HpValueManager hpDamManager;
+    private Joystick joystick;              // 虛擬搖桿類別
+    private Rigidbody rig;                  // 剛體
+    private Animator ani;                   // 動畫控制器
+    private Transform target;               // 目標
+    private LevelManager levelManager;      // 關卡管理器
+    private HpValueManager hpDamManager;    // 血量數值管理器
 
     private void Start()
     {
@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
         hpDamManager = GetComponentInChildren<HpValueManager>();            // 取得子物件的元件 (僅限於子物件內只有一個)
     }
 
-    // 固定更新：一秒 50 次 - 控制物理
     private void FixedUpdate()
     {
         Move();
@@ -76,11 +75,14 @@ public class Player : MonoBehaviour
         if (data.hp <= 0) Dead();
     }
 
+    /// <summary>
+    /// 死亡
+    /// </summary>
     private void Dead()
     {
-        ani.SetBool("死亡開關", true);
-        
-        //this.enabled = false;
-        enabled = false;                    // 取消此類別運作
+        ani.SetBool("死亡開關", true);                   // 死亡動畫
+        enabled = false;                                // 取消此類別運作
+
+        StartCoroutine(levelManager.ShowRevival());     // 啟動協程(關卡管理器.顯示復活介面())
     }
 }

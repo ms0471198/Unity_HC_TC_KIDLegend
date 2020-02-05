@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;  // 引用 場景管理 API
 using System.Collections;
 
+// 技能、載入關卡、復活介面
 public class LevelManager : MonoBehaviour
 {
     // GameObject.Find("物件名稱") - 找不到隱藏物件
@@ -14,6 +15,8 @@ public class LevelManager : MonoBehaviour
     public bool autoShowSkill;
     [Header("是否自動開門")]
     public bool autoOpenDool;
+    [Header("復活介面")]
+    public GameObject panelRevival;
 
     private Animator door;
     private Image imgCross;
@@ -66,5 +69,19 @@ public class LevelManager : MonoBehaviour
 
         // 允許直接載入
         async.allowSceneActivation = true;
+    }
+
+    /// <summary>
+    /// 顯示復活介面並倒數三秒
+    /// </summary>
+    public IEnumerator ShowRevival()
+    {
+        panelRevival.SetActive(true);
+
+        for (int i = 3; i > 0; i--)
+        {
+            panelRevival.transform.GetChild(1).GetComponent<Text>().text = i.ToString();
+            yield return new WaitForSeconds(1);
+        }
     }
 }
