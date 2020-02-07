@@ -84,4 +84,13 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
     }
+
+    /// <summary>
+    /// 關閉復活介面
+    /// </summary>
+    public void CloseRevival()
+    {
+        StopCoroutine(ShowRevival());       // 關閉協程
+        panelRevival.SetActive(false);      // 關閉介面
+    }
 }
