@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: "\u6BAD\u5C4D"
   m_EditorClassIdentifier: 
   hp: 250
+  hpMax: 250
   attack: 100
   cd: 3.5
-  speed: 1
+  speed: 1.2
   stopDistance: 2
   nearAttackLength: 2
   nearAttackPos: {x: 0, y: 1.8, z: 0}

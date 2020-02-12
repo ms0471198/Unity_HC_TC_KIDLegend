@@ -4,12 +4,14 @@ using UnityEngine.AI;   // 引用 人工智慧 API
 public class Enemy : MonoBehaviour
 {
     [Header("敵人資料")]
-    public EnemyData data;
+    public EnemyData data;                  // 每一隻怪物共用
 
     private Animator ani;
     private NavMeshAgent agent;
     private Transform target;
     private float timer;
+    private HpValueManager hpDamManager;    // 血量數值管理器
+    private float hp;                       // 每一隻怪物獨立
 
     private void Start()
     {
@@ -17,8 +19,10 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = data.speed;
         agent.stoppingDistance = data.stopDistance;
+        hp = data.hp;
 
         target = GameObject.Find("玩家").transform;
+        hpDamManager = GetComponentInChildren<HpValueManager>();            // 取得子物件的元件 (僅限於子物件內只有一個)
     }
 
     private void Update()
@@ -31,6 +35,8 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void Move()
     {
+        if (ani.GetBool("死亡開關")) return;
+
         agent.SetDestination(target.position);  // 代理器.設定目的地(玩家.座標)
 
         Vector3 targetPos = target.position;    // 區域變數 目標座標 = 玩家.座標
@@ -76,9 +82,15 @@ public class Enemy : MonoBehaviour
     /// 受傷
     /// </summary>
     /// <param name="damage">造成的傷害</param>
-    private void Hit(float damage)
+    public void Hit(float damage)
     {
+        hp -= damage;
+        hpDamManager.UpdateHpBar(hp, data.hpMax);
 
+        // 啟動協程(血量傷害值管理器.顯示數值(傷害值，-，1，白色))
+        StartCoroutine(hpDamManager.ShowValue(damage, "-", Vector3.one, Color.white));
+
+        if (hp <= 0) Dead();
     }
 
     /// <summary>
@@ -86,7 +98,9 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void Dead()
     {
-
+        ani.SetBool("死亡開關", true);
+        agent.isStopped = true;
+        Destroy(this);          // 刪除元件 Destroy(GetComponent<指定元件>())
     }
 
     /// <summary>
