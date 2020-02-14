@@ -5,6 +5,8 @@ public class Enemy : MonoBehaviour
 {
     [Header("敵人資料")]
     public EnemyData data;                  // 每一隻怪物共用
+    [Header("金幣")]
+    public GameObject coin;
 
     private Animator ani;
     private NavMeshAgent agent;
@@ -100,7 +102,9 @@ public class Enemy : MonoBehaviour
     {
         ani.SetBool("死亡開關", true);
         agent.isStopped = true;
-        Destroy(this);          // 刪除元件 Destroy(GetComponent<指定元件>())
+        Destroy(this);              // 刪除元件 Destroy(GetComponent<指定元件>())
+        Destroy(gameObject, 0.5f);  // 刪除物件 gameObject 此物件
+        DropTreasure();
     }
 
     /// <summary>
@@ -108,6 +112,12 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void DropTreasure()
     {
+        // (int)浮點數 - 強制轉換 把浮點數轉為整數
+        int r = (int)Random.Range(data.coinRandom.x, data.coinRandom.y);
 
+        for (int i = 0; i < r; i++)
+        {
+            Instantiate(coin, transform.position + transform.up * 2, Quaternion.identity);
+        }
     }
 }

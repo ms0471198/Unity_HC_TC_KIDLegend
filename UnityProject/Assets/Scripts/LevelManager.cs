@@ -93,4 +93,19 @@ public class LevelManager : MonoBehaviour
         StopCoroutine(ShowRevival());       // 關閉協程
         panelRevival.SetActive(false);      // 關閉介面
     }
+
+    /// <summary>
+    /// 過關
+    /// </summary>
+    public void Pass()
+    {
+        OpenDoor();
+
+        Item[] coins = FindObjectsOfType<Item>();
+
+        for (int i = 0; i < coins.Length; i++)
+        {
+            coins[i].pass = true;
+        }
+    }
 }

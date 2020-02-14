@@ -121,7 +121,11 @@ public class Player : MonoBehaviour
             enemys = FindObjectsOfType<Enemy>();        // 搜尋所有敵人
             enemysDistance = new float[enemys.Length];  // 指定敵人距離陣列長度
 
-            if (enemys.Length == 0) return;             // 如果 怪物數量為零 就跳出
+            if (enemys.Length == 0)
+            {
+                levelManager.Pass();    // 關卡管理器.過關
+                return;                 // 如果 怪物數量為零 就跳出
+            }
 
             timer = 0;                                  // 計時器歸零
             ani.SetTrigger("攻擊觸發");                  // 攻擊動畫

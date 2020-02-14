@@ -26,9 +26,9 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            if (other.tag == "敵人")                         // 如果碰到.名稱是玩家
+            if (other.GetComponent<Enemy>() && other.tag == "敵人")   // 如果碰到.名稱是玩家
             {
-                other.GetComponent<Enemy>().Hit(damage);     // 取得玩家.受傷(傷害)
+                other.GetComponent<Enemy>().Hit(damage);             // 取得玩家.受傷(傷害)
             }
         }
     }
