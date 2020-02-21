@@ -11,7 +11,7 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
 
     private void Start()
     {
-        Advertisement.Initialize(googlePlay, true);     // 廣告.初始化(廣告服務 ID，啟動測試模式)
+        Advertisement.Initialize(googlePlay, false);     // 廣告.初始化(廣告服務 ID，啟動測試模式)
         Advertisement.AddListener(this);                // 廣告.增加監聽者(此腳本)
         player = FindObjectOfType<Player>();
     }

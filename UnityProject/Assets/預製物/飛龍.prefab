@@ -1797,7 +1797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: abbe8c7b23570b2479d3cd43298abc11, type: 2}
-  coin: {fileID: 0}
+  coin: {fileID: 8377086037793120233, guid: fce6dac33969eee44ba68cfdbc92d59d, type: 3}
   bullet: {fileID: 8860287716247813956, guid: 738c78e74e624ed4baff055a73d585cb, type: 3}
 --- !u!1001 &9050797868809574932
 PrefabInstance:
@@ -1915,6 +1915,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873703644997001681, guid: 2df746088f074ec40bce813c0cd6543f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873703644997001681, guid: 2df746088f074ec40bce813c0cd6543f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.35933605
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873703644997001681, guid: 2df746088f074ec40bce813c0cd6543f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.35933605
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2df746088f074ec40bce813c0cd6543f, type: 3}
